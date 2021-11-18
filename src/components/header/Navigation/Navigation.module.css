@@ -1,0 +1,35 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 28px;
+}
+
+nav img {
+    display: inline-block;
+    justify-content: flex-start;
+
+}
+
+nav a {
+    text-decoration: none;
+    padding: 10px 10px 0 10px;
+}
+
+nav a:hover {
+    color: red;
+    
+}
+
+.input-search {
+    border: black 1px solid;
+    font-size: 28px;
+    border-radius: 17px;
+    padding-left: 10px;
+    font-family: "Open Sans";
+}
+
+.buttonsearch {
+    display: inline-block;
+    background-color: blanchedalmond;
+}
