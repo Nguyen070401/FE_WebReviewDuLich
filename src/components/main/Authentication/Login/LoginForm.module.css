@@ -1,0 +1,60 @@
+.formbackground {
+    background-color: rgba(14, 58, 114, 0.64);
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 20px;
+    height: 600px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;  
+    font-family: "Open Sans";
+}
+
+form input {
+    font-family: "Open Sans";
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 15px;
+    max-width: 460px;
+    margin: 10px 80px;
+}
+
+form p, h1 {
+    color: #FFFFFF;
+}
+
+div form p {
+    font-size: 18px;
+    color: rgb(243, 81, 81);
+}
+
+.rememberpassword {
+    display: flex;
+    font-size: 18px;
+    color: #FFFFFF;
+    flex-wrap: wrap;
+}
+
+input[type="checkbox"] {
+    transform: scale(2);
+    justify-content: flex-end;
+}
+
+.rememberpassword label {
+    justify-content: flex-start;
+}
+
+.submit {
+    margin: 40px 125px 40px 125px;
+    max-width: 230px;
+}
+
+.submit:hover {
+    background-color: red;
+    color: white;
+}

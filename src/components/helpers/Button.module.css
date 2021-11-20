@@ -1,3 +1,4 @@
 .button {
-    border-radius: 17px;
+    background-color: linear-gradient(0deg, rgba(246,246,246,1) 0%, rgba(159,255,255,1) 63%, rgba(79,170,217,1) 100%);
+    border-radius: 20px;
 }

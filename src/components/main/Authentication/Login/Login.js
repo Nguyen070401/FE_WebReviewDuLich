@@ -4,11 +4,18 @@ import Navigation from "../../../header/Navigation/Navigation";
 import LoginForm from "./LoginForm";
 
 function Login() {
+    const getDataFromLogin = function (email, password) {
+        const data =  {
+            userEmail: email,
+            userPassword: password
+        }
+        console.log(data);
+    }
     return (
-        <Fragment>
+        <div className={classes["login-background"]}>
             <Navigation />
-            <LoginForm />
-        </Fragment>
+            <LoginForm onGetData={getDataFromLogin}/>
+        </div>
     )
 }
 

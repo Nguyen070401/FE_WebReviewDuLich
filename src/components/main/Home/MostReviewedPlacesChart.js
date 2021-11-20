@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import classes from "./MostReviewedPlacesChart.module.css";
 
-function PlacesChart(props) {
+function PlacesChart(props) { //re-render
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
 
@@ -11,7 +11,7 @@ function PlacesChart(props) {
     setIsLoading(true);
     setIsError(null);
     try {
-      const response = await fetch(""); //url for GET Method, it returns a promise
+      const response = await fetch(""); //url for GET Method, it returns a promise axios
       if (!response.ok) {
         throw new Error(
           "Something went wrong on our end! Please refresh or try again later."
@@ -38,7 +38,7 @@ function PlacesChart(props) {
 
   useEffect(() => {
     getMostReviewedPlaces();
-  }, [getMostReviewedPlaces]); //makes sure it runs if the function changes and re-render Home
+  }, [getMostReviewedPlaces]); //makes sure it runs whenever functions changes
 
   return ( //styling by added in correspondent elements: className={classes.'set your class name'}
     <Fragment>

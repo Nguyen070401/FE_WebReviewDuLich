@@ -1,4 +1,4 @@
-import React, { useRef, useState, useReducer } from "react";
+import React, { useReducer, useEffect, useState } from "react"; //side effect
 import classes from "./LoginForm.module.css";
 
 function emailReducer(state, action) {
@@ -15,7 +15,7 @@ function emailReducer(state, action) {
   } else
     return {
       value: "",
-      isEmailValid: "",
+      isEmailValid: false
     };
 }
 
@@ -30,33 +30,34 @@ function passwordReducer(state, action) {
       value: state.value,
       isPasswordValid: state.isPasswordValid,
     };
-  }
-  return {
-    value: "",
-    isPasswordValid: false,
-  };
+  } else
+    return {
+      value: "",
+      isPasswordValid: false,
+    };
 }
 
-function LoginForm() {
+function LoginForm(props) {
   // const [userEmail, setUserEmail] = useState('');
   // const [userPassword, setUserPassword] = useState('');
   const [userEmail, dispatchUserEmail] = useReducer(emailReducer, {
     value: "",
-    isEmailValid: false,
+    isEmailValid: true
   });
 
   const [userPassword, dispatchUserPassword] = useReducer(passwordReducer, {
     value: "",
-    isPasswordValid: false,
+    isPasswordValid: true
   });
+
+  const [isFormValid, setIsFormValid] = useState(false);
 
   function emailChangeHandler(event) {
     let enteredEmail = event.target.value.trim();
-
     function validateEmail(email) {
       //validate email. source: stackoverflow =)). try: not yet
       const result =
-        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //regular expression
       return result.test(email);
     }
     dispatchUserEmail({
@@ -72,15 +73,17 @@ function LoginForm() {
 
   function passwordChangeHandler(event) {
     let enteredPassword = event.target.value;
-
     function validatePassword(password) {
-      let result = password.includes(""); //not done
+      if (enteredPassword.length > 8) {
+        //minimun length >= 8
+        return true; //password contains at least a number
+      }
+      return false;
     }
-
     dispatchUserPassword({
       type: "LOGIN_PASSWORDINPUT",
       value: enteredPassword,
-      isPasswordValid: validatePassword(),
+      isPasswordValid: validatePassword(enteredPassword),
     });
     //setUserPassword(event.target.value);
   }
@@ -89,20 +92,35 @@ function LoginForm() {
     dispatchUserPassword({ type: "LOGIN_PASSWORDINPUT_LOSTFOCUS" });
   }
 
+  function formValidation(emailValid, passwordValid) {
+    setIsFormValid(emailValid && passwordValid);
+  }
+
   function submitHandler(event) {
     //sending Request
-    console.log(userEmail.value);
-    console.log(userPassword);
-
+    event.preventDefault();
+    props.onGetData(userEmail.value, userPassword.value);
     //After submitting, empty the value of inputs
     //setUserEmail('');
     //setUserPassword("");
   }
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      formValidation(userEmail.isEmailValid, userPassword.isPasswordValid);
+      console.log("Validating form");
+    }, 500);
+
+    return () => {
+      console.log("CLEANUP");
+      clearTimeout(timeout);
+    };
+  }, [userEmail.isEmailValid, userPassword.isPasswordValid]);
+
   return (
-    <form onSubmit={submitHandler}>
-      <div>
-        <label>Email</label>
+    <div className={classes.formbackground}>
+      <h1>Đăng nhập</h1>
+      <form onSubmit={submitHandler}>
         <input
           placeholder="Nhập email"
           type="email"
@@ -110,19 +128,26 @@ function LoginForm() {
           onChange={emailChangeHandler}
           onBlur={emailValidation}
         />
-      </div>
-      <div>
-        <label>Mật khẩu</label>
-        <p>Mật khẩu cần phải có ít nhất 6 ký tự, có ít nhất 1 chữ số</p>
+        {!userEmail.isEmailValid && <p>Email is invalid. Please try again!</p>}
         <input
-          placeHolder="Nhập mật khẩu"
+          placeholder="Nhập mật khẩu"
           type="password"
-          value={userPassword}
+          value={userPassword.value}
           onChange={passwordChangeHandler}
           onBlur={passwordValidation}
         />
-      </div>
-    </form>
+        {!userPassword.isPasswordValid && <p>Password must at least have 8 characters and 1 number.</p>}
+        <div className={classes.rememberpassword}>
+          <input type="checkbox" id="remember_password"/>
+          <label htmlFor="remember_password">Remeber password?</label>
+        </div>
+        {isFormValid ? (
+          <input className = {classes.submit} type="submit" value="Đăng nhập" />
+        ) : (
+          <input type="submit" value="Đăng nhập" disabled={true} />
+        )}
+      </form>
+    </div>
   );
 }
 

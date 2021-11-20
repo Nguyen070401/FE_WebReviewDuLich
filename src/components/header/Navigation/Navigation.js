@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function Navigation() {
-  function search() {}
+  function search() {} //go to search page
 
-  return (
+  return ( 
     <nav className={classes.navbar}>
       {/*<img source="" alt="Logo Revigo" /> {/*ảnh logo*/}
       <div className={classes["middle-bar"]}>
