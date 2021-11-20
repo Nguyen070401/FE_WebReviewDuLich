@@ -119,7 +119,7 @@ function LoginForm(props) {
 
   return (
     <div className={classes.formbackground}>
-      <h1>Đăng nhập</h1>
+      <h1>ĐĂNG NHẬP</h1>
       <form onSubmit={submitHandler}>
         <input
           placeholder="Nhập email"
