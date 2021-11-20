@@ -1,5 +1,5 @@
 .formbackground {
-    background-color: rgba(14, 58, 114, 0.64);
+    background-color: rgba(5, 54, 117, 0.64);
     max-width: 620px;
     display: flex;
     flex-direction: column;
@@ -7,7 +7,9 @@
     margin-top: 40px;
     border-radius: 20px;
     height: 600px;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 68%);
 }
+
 
 form {
     display: flex;
@@ -17,20 +19,23 @@ form {
 
 form input {
     font-family: "Open Sans";
-    font-size: 24px;
-    padding: 10px;
+    font-size: 1.2rem;
+    padding: 17px;
     border-radius: 15px;
     max-width: 460px;
     margin: 10px 80px;
 }
 
-form p, h1 {
+h1 {
+    margin-top: 53px;
     color: #FFFFFF;
 }
 
 div form p {
     font-size: 18px;
-    color: rgb(243, 81, 81);
+    color: rgb(0, 255, 76);
+    padding: 0;
+    z-index: 100;
 }
 
 .rememberpassword {
@@ -38,23 +43,26 @@ div form p {
     font-size: 18px;
     color: #FFFFFF;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 input[type="checkbox"] {
     transform: scale(2);
-    justify-content: flex-end;
+    margin: 9px 12px 10px 99px;
 }
 
 .rememberpassword label {
     justify-content: flex-start;
+    cursor: pointer;
 }
 
 .submit {
-    margin: 40px 125px 40px 125px;
-    max-width: 230px;
+    margin: 27px auto;
+    width: 282px;
 }
 
 .submit:hover {
-    background-color: red;
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 68%);
+    background-color: rgb(241, 24, 24);
     color: white;
 }
